@@ -30,12 +30,8 @@ var theType = "None";
 
 
 // TWILIO SETUP
-//const accountSid = process.env.TWILIO_ACCOUNT_SID;
-//const accountSid = 'ACb3f6fd5bcee52970a382c9daf3c3b268'; // cavoom
-const accountSid = 'AC564af17a5a1e1b9664971a97c687daed'; // ADMR 
-//const authToken = process.env.TWILIO_AUTH_TOKEN;
-//const authToken = '42aa1bd91cc7a24adf97e5efa95bbfcf'; // cavoom
-const authToken = 'b8a5da4811000d15f60cddb0d03f93f1'; // ADMR 
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 const client = require('twilio')(accountSid, authToken);
 const fromNumber = '+16364283320'; // ADMR
