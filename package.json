@@ -1,0 +1,16 @@
+{
+  "name": "admrgoogleapislim",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1215.0",
+    "string-similarity": "^4.0.4",
+    "twilio": "^3.82.0"
+  }
+}
