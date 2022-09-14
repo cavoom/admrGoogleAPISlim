@@ -86,6 +86,9 @@ exports.handler = function(event,context) {
         smsMessage = theSplit[3]; // The SMS Message
 
         // Single Number Campaigns are not being recognized easily
+        // Remove apostrophies in the utterance
+        theId = theId.replace(/'/g,'');
+        theItem = theItem.replace(/'/g,'');
 
         if(theId == "one"){
             theId = "1";
@@ -103,8 +106,7 @@ exports.handler = function(event,context) {
             theId = "5";
         };
 
-        // Remove apostrophies in the utterance
-        theItem = theItem.replace(/'/g,'');
+
 
 
         // *********** NUMBER INTENT
