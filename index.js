@@ -85,26 +85,7 @@ exports.handler = function(event,context) {
         theType = theSplit[2]; // The Type of Intent
         smsMessage = theSplit[3]; // The SMS Message
 
-        // Single Number Campaigns are not being recognized easily
-        // Remove apostrophies in the utterance
-        theId = theId.replace(/'/g,'');
-        theItem = theItem.replace(/'/g,'');
 
-        if(theId == "one"){
-            theId = "1";
-        };
-        if(theId == "two"){
-            theId = "2"
-        };
-        if(theId == "three"){
-            theId = "3";
-        };
-        if(theId == "four"){
-            theId = "4"
-        };
-        if(theId == "five"){
-            theId = "5";
-        };
 
 
 
