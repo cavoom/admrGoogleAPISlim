@@ -168,8 +168,8 @@ exports.handler = function(event,context) {
     console.log('at hello intent');
     saveIntent = "Helo Intent";
     saveItem = "Hello";
-    let helperResponse = "This is a quick API test."
-
+    //let helperResponse = "This is a quick API test."
+let helperResponse = "Welcome to test mode. I'm going to pause for a few seconds for you to find a question to ask me. <break time=\"3s\"/> If you don't have a question yet, here's some music to listen to <audio src=\"https://admr.s3.amazonaws.com/shortMusic.mp3\" /> and now some narration <audio src=\"https://admr.s3.amazonaws.com/shortStory3.mp3\" /> OK, now ask me a question ... "
     // analytics(saveIntent, saveItem, (stuff)=>{
     handleAPIIntent(helperResponse,context);
 
