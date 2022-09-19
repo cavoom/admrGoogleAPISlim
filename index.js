@@ -150,6 +150,19 @@ exports.handler = function(event,context) {
     // analytics(saveIntent, saveItem, (stuff)=>{
     handleAPIIntent(helperResponse,context);
 
+
+
+// HELLO INTENT 
+
+} else if(theType == "helloIntent"){
+    console.log('at hello intent');
+    saveIntent = "Helo Intent";
+    saveItem = "Hello";
+    let helperResponse = "This is a quick API test."
+
+    // analytics(saveIntent, saveItem, (stuff)=>{
+    handleAPIIntent(helperResponse,context);
+    
 // *** TEXT ME INTENT *** 
 
 } else if (theType == "textMeIntent") {
