@@ -28,6 +28,9 @@ var cleanedUp = null;
 var theSplit = [];
 var theType = "None";
 
+// FOR INITIAL API CALL TEST
+var testIt = require('./numbers.json');
+
 
 // TWILIO SETUP
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -69,7 +72,7 @@ exports.handler = function(event,context) {
         saveItem = 'None yet';
 
         // *************   FOR LOCAL TESTING **************************
-        //cleanedUp = '1&254567&helloIntent&testing some good stuff out tonight';
+        //cleanedUp = '1&254567&numberIntent&testing some good stuff out tonight';
         
         // Grab parameters from the URL string
         parameters = event.rawQueryString;
@@ -80,10 +83,6 @@ exports.handler = function(event,context) {
         theItem = theSplit[1]; // The Slot or sms message if text
         theType = theSplit[2]; // The Type of Intent
         smsMessage = theSplit[3]; // The SMS Message
-
-
-
-
 
 
         // *********** NUMBER INTENT
@@ -104,7 +103,18 @@ exports.handler = function(event,context) {
                         campaignName = theQuestionArray[0].campaignName.S;
                         campaignNumber = theQuestionArray[0].campaignNumber.S;
 
-                        // New
+                        // FOR TEST
+
+                        if(testIt[0][campaignNumber]){
+                            theFoundResponse = testIt[0][campaignNumber];
+                            smsMessage = testIt[1][campaignNumber];
+                            handleAPIIntent(theFoundResponse, context)
+                        } else {
+                            theFoundResponse = 'Sorry. We did not find that campaign number. Please tell me the campaign number on your mailing.';
+                            handleAPIIntent(theFoundResponse, context);
+                        }
+
+                        // FOR TEST
                         //theFoundResponse = "We did not find that offer. Please tell me the offer number on your mailer.";
                         // theQuestionArray.sort(function(a, b){return a.id.S - b.id.S});
                         // theFoundResponse = theQuestionArray[0].answerFromAlexa;
@@ -113,15 +123,15 @@ exports.handler = function(event,context) {
                         // console.log('FOUND RESPONSE: ',theFoundResponse);
                         // console.log(theQuestionArray[0]);
 
-                        startDiscussion((theFoundResponse)=>{
+                        //startDiscussion((theFoundResponse)=>{
 
                             // Save interaction to dynamoDB
                             //analytics(saveIntent, saveItem, (stuff)=>{
                                 //console.log('back from that analytics yo');
                                 //console.log('theFoundResponse: ',theFoundResponse);
-                                handleAPIIntent(theFoundResponse, context)
+                                //handleAPIIntent(theFoundResponse, context)
                             //}) // ends analytics
-                        }) // ends start Discussion
+                        //}) // ends start Discussion
 
                     } else {// ends if QuestionArray doesn't exist
                         analytics(saveIntent, saveItem, (stuff)=>{
