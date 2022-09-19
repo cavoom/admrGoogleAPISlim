@@ -69,7 +69,7 @@ exports.handler = function(event,context) {
         saveItem = 'None yet';
 
         // *************   FOR LOCAL TESTING **************************
-        //cleanedUp = 'one&254567&numberIntent&testing some good stuff out tonight';
+        //cleanedUp = '1&254567&helloIntent&testing some good stuff out tonight';
         
         // Grab parameters from the URL string
         parameters = event.rawQueryString;
@@ -162,7 +162,7 @@ exports.handler = function(event,context) {
 
     // analytics(saveIntent, saveItem, (stuff)=>{
     handleAPIIntent(helperResponse,context);
-    
+
 // *** TEXT ME INTENT *** 
 
 } else if (theType == "textMeIntent") {
