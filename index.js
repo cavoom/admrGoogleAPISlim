@@ -51,6 +51,7 @@ var params = {};
 var campaignName = "none";
 var campaignNumber = null;
 var generalResponse = "I don't know the answer to that question. Ask me any question on your mailer."; // Used in general Intent
+var theOriginal = null; // This is used for the readText versus speechText when an audio file is added
 
 // Text message variables
 var theNumber = "Not Provided";
@@ -103,7 +104,10 @@ exports.handler = function(event,context) {
                         campaignName = theQuestionArray[0].campaignName.S;
                         campaignNumber = theQuestionArray[0].campaignNumber.S;
 
-                        // FOR TEST
+                        // Now we are always making the first one the Offer Response and Second SMS Message
+                        // So we don't need the function startDiscussion that we need in the Alexa version
+                        // Did this to try to speed up the API, but probably didn't need to
+                        // Just need to add the .audio link, if it exists, to theFoundResponse Below
 
                         if(testIt[0][campaignNumber]){
                             theFoundResponse = testIt[0][campaignNumber];
@@ -169,7 +173,7 @@ exports.handler = function(event,context) {
     saveIntent = "Helo Intent";
     saveItem = "Hello";
     //let helperResponse = "This is a quick API test."
-let helperResponse = "Welcome to test mode. I'm going to pause for a few seconds for you to find a question to ask me. <break time=\"3s\"/> If you don't have a question yet, here's some music to listen to <audio src=\"https://admr.s3.amazonaws.com/shortMusic.mp3\" /> and now some narration <audio src=\"https://admr.s3.amazonaws.com/shortStory3.mp3\" /> OK, now ask me a question ... "
+let helperResponse = "<speak>Welcome to test mode. I'm going to pause for a few seconds for you to find a question to ask me. <break time=\"3s\"/> If you don't have a question yet, here's some music to listen to <audio src=\"https://admr.s3.amazonaws.com/shortMusic.mp3\" /> and now some narration <audio src=\"https://admr.s3.amazonaws.com/shortStory3.mp3\" /> OK, now ask me a question ... </speak>";
     // analytics(saveIntent, saveItem, (stuff)=>{
     handleAPIIntent(helperResponse,context);
 
