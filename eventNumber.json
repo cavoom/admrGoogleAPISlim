@@ -100,12 +100,12 @@
 			"slots": {
 				"numberItem": {
 					"name": "numberItem",
-					"value": "one",
+					"value": "1",
 					"confirmationStatus": "NONE",
 					"source": "USER",
 					"slotValue": {
 						"type": "Simple",
-						"value": "one"
+						"value": "1"
 					}
 				}
 			}

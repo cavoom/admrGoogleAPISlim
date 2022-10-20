@@ -29,17 +29,19 @@ var theSplit = [];
 var theType = "None";
 
 // FOR INITIAL API CALL TEST
+// This was attempted to speed up the look up
 var testIt = require('./numbers.json');
 
 
 // TWILIO SETUP
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
 
-const client = require('twilio')(accountSid, authToken);
-const fromNumber = '+16364283320'; // ADMR
-//const fromNumber ='+19894398613'; // Cavoom
-//const theMessage = "testing inside of that Alexa skill";
+// Commented out FOR TEST
+// const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+// const client = require('twilio')(accountSid, authToken);
+// const fromNumber = '+16364283320'; // ADMR
+
 
 // Setup to read from Dynamo
 AWS.config.update({ region: "us-east-1" });
@@ -60,24 +62,25 @@ var theResponseBack = null;
 //var needle = require('needle');
 var theResponse = null;
 
-
 // Starts Here
 exports.handler = function(event,context) {
 
     try {
-    // FOR TESTing
-    // var request  = event.request;
-    // var session = event.session;
+    // FOR TEST
+    var request  = event.request;
+    var session = event.session;
 
         saveIntent = 'Google Test';
         saveItem = 'None yet';
 
-        // *************   FOR LOCAL TESTING **************************
-        //cleanedUp = '1&254567&numberIntent&testing some good stuff out tonight';
+        // *************   FOR TEST **************************
+        cleanedUp = '1&254567&numberIntent&testing';
+        console.log('starting with: ', cleanedUp);
+        console.log('intent name: ', request.intent.name);
         
         // Grab parameters from the URL string
-        parameters = event.rawQueryString;
-        cleanedUp = decodeURI(parameters);
+        // parameters = event.rawQueryString;
+        // cleanedUp = decodeURI(parameters);
 
         theSplit = cleanedUp.split("&");
         theId = theSplit[0]; // The Campaign Number
@@ -87,8 +90,13 @@ exports.handler = function(event,context) {
 
 
         // *********** NUMBER INTENT
-            if(theType == "numberIntent"){
-            //console.log('number intent');
+
+        // FOR TEST
+            //if(theType == "numberIntent"){ // This one used for API purposes
+            if(request.intent.name == "numberIntent"){ // Using this for testing purposes
+
+            console.log('number intent');
+
             saveIntent = "Campaign Number";
             saveItem = "No Item";
             
@@ -109,8 +117,13 @@ exports.handler = function(event,context) {
                         // Did this to try to speed up the API, but probably didn't need to
                         // Just need to add the .audio link, if it exists, to theFoundResponse Below
 
+                        console.log('QUESTION ARRAY: ', theQuestionArray[0],theQuestionArray[1]);
+                        console.log('TEST IT ARRAY: ', testIt[0][campaignNumber]);
+
                         if(testIt[0][campaignNumber]){
                             theFoundResponse = testIt[0][campaignNumber];
+                            theOriginal = theFoundResponse // Sets us up to use the version without audio in handler
+
                             smsMessage = testIt[1][campaignNumber];
                             handleAPIIntent(theFoundResponse, context)
                         } else {
@@ -822,8 +835,8 @@ function analytics(saveIntent, saveItem, callback){
     // Create object to save in DynamoDB
     // Rename Table for this when upload to ADMR instance
     var params = {
-        TableName: 'admr_analytics2',  // for admr
-        //TableName: 'admr_analytics', // For cavoom
+        //TableName: 'admr_analytics2',  // for admr
+        TableName: 'admr_analytics', // FOR TEST
         Item: {
           'analyticsId' : {S: uniqueId},
           'the_Date' : {S: theDate},
